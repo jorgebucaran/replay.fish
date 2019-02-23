@@ -37,8 +37,8 @@ To uninstall, remove the file.
 
 You need to run a script in bash and want to preserve changes in the environment, e.g., modifications to the `$PATH`, exported and unset variables, and so on. What do you do? Nuke the current session.
 
-```
-exec bash -c "$commands; exec fish"
+```console
+$ exec bash -c "$commands; exec fish"
 ```
 
 This is not a rare pattern. Fork a POSIX shell, run your scripts there, inherit the environment in fish. And if you're content with that, you're all set, grab it and off you go. Any caveats? Unfortunately, yes.
