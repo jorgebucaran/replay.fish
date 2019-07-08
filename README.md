@@ -1,4 +1,4 @@
-# fish-bax [![Releases](https://img.shields.io/github/release/jorgebucaran/fish-bax.svg?label=&color=0080FF)](https://github.com/jorgebucaran/fish-bax/releases/latest) [![Travis CI](https://img.shields.io/travis/jorgebucaran/fish-bax.svg?label=)](https://travis-ci.org/jorgebucaran/fish-bax)
+# fish-bax [![Releases](https://img.shields.io/github/release/jorgebucaran/fish-bax.svg?label=&color=0080FF)](https://github.com/jorgebucaran/fish-bax/releases/latest)
 
 > Run bash utilities right from your fish shell.
 
