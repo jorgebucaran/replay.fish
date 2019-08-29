@@ -31,14 +31,14 @@ function bax
                 }
                 END {
                     for (k in env)
-                        if (k !~ /^(_|SHLVL|PS1|XPC_SERVICE_NAME|AWK(LIB)?PATH)$|^BASH_FUNC/\
+                        if (len++ && k !~ /^(_|SHLVL|PS1|XPC_SERVICE_NAME|AWK(LIB)?PATH)$|^BASH_FUNC/\
                         && !(k in ENVIRON && ENVIRON[k] == env[k]))
                             print (\
                                 k == "PATH" && gsub(/:/, "\" \"", env[k]) >= 0\
                                     ? "set PATH \"" env[k] "\"" : k == "PWD"\
                                     ? "cd \"" env[k] "\"" : "set -gx " k " \"" env[k] "\""\
                             )
-                    if (!length(env)) print "exit " $2
+                    if (!len) print "exit " $2
                     else for (k in ENVIRON) if (!(k in env)) print "set -e " k
                 }
             ' | source
