@@ -3,7 +3,7 @@ set -g bax_version 1.0.0
 complete -xc bax -n __fish_use_subcommand -a --help -d "Show usage help"
 complete -xc bax -n __fish_use_subcommand -a --version -d "$bax_version"
 
-function bax
+function bax -d "Run bash utilities from fish"
     switch "$argv"
         case {,-}-h{elp,} ""
             echo "usage: bax <bash commands>    Run a bash command"
