@@ -1,6 +1,6 @@
-# fish-bax [![Releases](https://img.shields.io/github/release/jorgebucaran/fish-bax.svg?label=&color=0080FF)](https://github.com/jorgebucaran/fish-bax/releases/latest)
+# bax.fish
 
-> Run bash utilities right from your fish shell.
+> Run bash utilities from fish.
 
 Bax is a POSIX shell execution wrapper for the <a href="https://fishshell.com" title="friendly interactive shell">fish shell</a>. Use it to run bash utilities, replaying environment changes in fish without leaving the comfort of your session.
 
@@ -15,7 +15,7 @@ fisher add jorgebucaran/fish-bax
 <details>
 <summary>Not using a package manager?</summary>
 
----
+###
 
 Copy [`bax.fish`](bax.fish) to any directory on your function path.
 
@@ -24,29 +24,25 @@ set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
 curl https://git.io/bax.fish --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/bax.fish
 ```
 
-To uninstall, remove the file.
+To uninstall, remove `bax.fish`.
 
 </details>
 
-### System Requirements
-
-- [fish](https://github.com/fishshell) 2.0+
-
 ## Background
 
-You need to run a script in bash and want to preserve changes in the environment, e.g., modifications to the `$PATH`, exported and unset variables, and so on. What do you do? Nuke the current session.
+You need to run a script in bash and want to preserve changes in the environment, e.g., modifications to the `$PATH`, exported and unset variables, and so on. What do you do? Just nuke the current session.
 
 ```console
 $ exec bash -c "$commands; exec fish"
 ```
 
-This is not a rare pattern. Fork a POSIX shell, run your scripts there, inherit the environment in fish. And if you're content with that, you're all set. Any caveats? Unfortunately, yes.
+Fork a POSIX shell, run your scripts there, inherit the environment in fish. And if you're content with that, you're all set. Any caveats? Unfortunately, yes.
 
 For starters, there's no way to preserve the last command exit status in the new shell. You'll lose the entire state of your session; history may not sync up correctly if you have fish running in other terminal tabs, local variables are gone. Fish takes a little while to start up. Moreover, things fish is configured to do on startup like running configuration snippets or displaying a custom greeting, may not be appreciated. If jobs are running in the background, they'll be terminated too.
 
-To solve this problem, Bax runs your commands in bash, captures environment changes and reproduces them in fish, so you don't have to [`exec`](https://fishshell.com/docs/current/commands.html#exec)-away your session. Now you can have your cake and eat it too.
+To solve this problem, Bax runs your commands in bash, captures environment changes and reproduces them in fish, so you don't have to [`exec`](https://fishshell.com/docs/current/commands.html#exec)-away your session. Now you can have your fishcake and eat it too. 🍥
 
-## Usage
+## Getting Started
 
 Run bash commands.
 
@@ -61,7 +57,7 @@ $ env | string match "PYTHON=*"
 PYTHON=python2
 ```
 
-Use double quotes (or single quotes to avoid variable substitution) to enclose multiple commands separated by a semicolon. Here's an example that downloads the latest Node.js release using [creationix/nvm](https://github.com/creationix/nvm).
+Use double quotes (or single quotes to avoid variable substitution) to enclose multiple commands separated by a semicolon. Here's an example that downloads the latest Node.js release using [nvm-sh/nvm](https://github.com/nvm-sh/nvm).
 
 ```console
 $ bax "source ~/.nvm/nvm.sh --no-use; nvm use latest"
