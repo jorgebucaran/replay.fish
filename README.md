@@ -28,20 +28,6 @@ To uninstall, remove `bax.fish`.
 
 </details>
 
-## Background
-
-You need to run a script in bash and want to preserve changes in the environment, e.g., modifications to the `$PATH`, exported and unset variables, and so on. What do you do? Just nuke the current session.
-
-```console
-$ exec bash -c "$commands; exec fish"
-```
-
-Fork a POSIX shell, run your scripts there, inherit the environment in fish. And if you're content with that, you're all set. Any caveats? Unfortunately, yes.
-
-For starters, there's no way to preserve the last command exit status in the new shell. You'll lose the entire state of your session; history may not sync up correctly if you have fish running in other terminal tabs, local variables are gone. Fish takes a little while to start up. Moreover, things fish is configured to do on startup like running configuration snippets or displaying a custom greeting, may not be appreciated. If jobs are running in the background, they'll be terminated too.
-
-To solve this problem, Bax runs your commands in bash, captures environment changes and reproduces them in fish, so you don't have to [`exec`](https://fishshell.com/docs/current/commands.html#exec)-away your session. Now you can have your fishcake and eat it too. 🍥
-
 ## Getting Started
 
 Run bash commands.
@@ -80,6 +66,20 @@ Initialized empty Git repository in ~/Code/fish-bax/.git/
 ```
 
 Bax is not infallible. Interactive utilities, such as [`ssh-add`](http://man7.org/linux/man-pages/man1/ssh-add.1.html) are not currently supported.
+
+## Background
+
+You need to run a script in bash and want to preserve changes in the environment, e.g., modifications to the `$PATH`, exported and unset variables, and so on. What do you do? Just nuke the current session.
+
+```console
+$ exec bash -c "$commands; exec fish"
+```
+
+Fork a POSIX shell, run your scripts there, inherit the environment in fish. And if you're content with that, you're all set. Any caveats? Unfortunately, yes.
+
+For starters, there's no way to preserve the last command exit status in the new shell. You'll lose the entire state of your session; history may not sync up correctly if you have fish running in other terminal tabs, local variables are gone. Fish takes a little while to start up. Moreover, things fish is configured to do on startup like running configuration snippets or displaying a custom greeting, may not be appreciated. If jobs are running in the background, they'll be terminated too.
+
+To solve this problem, Bax runs your commands in bash, captures environment changes and reproduces them in fish, so you don't have to [`exec`](https://fishshell.com/docs/current/commands.html#exec)-away your session. Now you can have your fishcake and eat it too!
 
 ## License
 
