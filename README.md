@@ -2,14 +2,14 @@
 
 > Run bash utilities from fish.
 
-Bax is a POSIX shell execution wrapper for the <a href="https://fishshell.com" title="friendly interactive shell">fish shell</a>. Use it to run bash utilities, replaying environment changes in fish without leaving the comfort of your session.
+Bax is a POSIX shell execution wrapper for <a href="https://fishshell.com" title="friendly interactive shell">fish</a>. Use it to run bash utilities, replaying environment changes in fish without leaving the comfort of your session.
 
 ## Installation
 
 Install with [Fisher](https://github.com/jorgebucaran/fisher) (recommended):
 
-```
-fisher add jorgebucaran/fish-bax
+```console
+fisher add jorgebucaran/bax.fish
 ```
 
 <details>
@@ -20,11 +20,8 @@ fisher add jorgebucaran/fish-bax
 Copy [`bax.fish`](bax.fish) to any directory on your function path.
 
 ```fish
-set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
-curl https://git.io/bax.fish --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/bax.fish
+curl https://git.io/bax.fish --create-dirs -sLo ~/.config/fish/functions/bax.fish
 ```
-
-To uninstall, remove `bax.fish`.
 
 </details>
 
