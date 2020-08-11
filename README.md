@@ -1,6 +1,6 @@
 # bax.fish
 
-> Run bash utilities from fish.
+> Run bash scripts from fish.
 
 Bax is a POSIX shell execution wrapper for <a href="https://fishshell.com" title="friendly interactive shell">fish</a>. Use it to run bash utilities, replaying environment changes in fish without leaving the comfort of your session.
 
