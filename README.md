@@ -25,7 +25,7 @@ curl https://git.io/bax.fish --create-dirs -sLo ~/.config/fish/functions/bax.fis
 
 </details>
 
-## Getting Started
+## Quickstart
 
 Run bash commands.
 
