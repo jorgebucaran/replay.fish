@@ -2,7 +2,7 @@
 
 > Run bash scripts from fish.
 
-Bax is a POSIX shell execution wrapper for <a href="https://fishshell.com" title="friendly interactive shell">fish</a>. Use it to run bash utilities, replaying environment changes in fish without leaving the comfort of your session.
+Bax is a POSIX-compatible shell execution wrapper for <a href="https://fishshell.com" title="friendly interactive shell">fish</a>. Use it to run bash utilities, replaying environment changes in fish without leaving the comfort of your session.
 
 ## Installation
 
@@ -72,7 +72,7 @@ You need to run a script in bash and want to preserve changes in the environment
 $ exec bash -c "$commands; exec fish"
 ```
 
-Fork a POSIX shell, run your scripts there, inherit the environment in fish. And if you're content with that, you're all set. Any caveats? Unfortunately, yes.
+Fork a POSIX-compatible shell, run your scripts there, inherit the environment in fish. And if you're content with that, you're all set. Any caveats? Unfortunately, yes.
 
 For starters, there's no way to preserve the last command exit status in the new shell. You'll lose the entire state of your session; history may not sync up correctly if you have fish running in other terminal tabs, local variables are gone. Fish takes a little while to start up. Moreover, things fish is configured to do on startup like running configuration snippets or displaying a custom greeting, may not be appreciated. If jobs are running in the background, they'll be terminated too.
 
