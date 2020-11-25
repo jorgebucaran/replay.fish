@@ -9,7 +9,7 @@ Bax is a POSIX-compatible shell execution wrapper for <a href="https://fishshell
 Install with [Fisher](https://github.com/jorgebucaran/fisher) (recommended):
 
 ```console
-fisher add jorgebucaran/bax.fish
+fisher install jorgebucaran/bax.fish
 ```
 
 <details>
