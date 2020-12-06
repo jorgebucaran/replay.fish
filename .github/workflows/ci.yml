@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        run: |
+          sudo add-apt-repository -y ppa:fish-shell/nightly-master
+          sudo apt-get update
+          sudo apt-get -y install fish
+        run: |
+          curl git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+          fish -c "fisher add . jorgebucaran/fishtape && fishtape test/*.fish"
+
+name: CI
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Fish
+        run: |
+          sudo apt-add-repository -yn ppa:fish-shell/release-3
+          sudo apt-get update
+          sudo apt-get install -y fish
+
+      - name: Install Tools
+        run: |
+          curl -sL https://git.io/fisher | source
+          fisher install jorgebucaran/{fisher,fishtape} $GITHUB_WORKSPACE
+          fishtape test/*.fish
+        shell: fish {0}
