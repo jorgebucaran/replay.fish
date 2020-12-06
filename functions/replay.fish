@@ -1,10 +1,11 @@
-function replay -d "Run Bash commands replaying changes in Fish"
+function replay -d "Run Bash commands replaying changes in the current shell"
     switch "$argv"
         case "" -h --help
-            echo "Usage: replay <bash commands>  Run Bash commands replaying changes in Fish"
+            echo "Usage: replay <commands>  Run Bash commands replaying changes in the current shell"
+            echo
             echo "Options:"
-            echo "       replay --help           Print this help message"
-            echo "       replay --version        Print version"
+            echo "       -v or --version  Print version"
+            echo "       -h or --help     Print this help message"
         case -v --version
             echo "replay, version 1.0.0"
         case \*
