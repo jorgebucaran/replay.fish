@@ -1,7 +1,7 @@
 function replay -d "Run Bash commands replaying changes in Fish"
     switch "$argv"
         case -v --version
-            echo "replay, version 1.0.0"
+            echo "replay, version 1.1.0"
         case "" -h --help
             echo "Usage: replay <commands>  Run Bash commands replaying changes in Fish"
             echo "Options:"
