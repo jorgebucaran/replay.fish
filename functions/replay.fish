@@ -1,44 +1,48 @@
-function replay -d "Run Bash commands replaying changes in the current shell"
+function replay -d "Run Bash commands replaying changes in Fish"
     switch "$argv"
+        case -v --version
+            echo "replay, version 1.0.0"
         case "" -h --help
-            echo "Usage: replay <commands>  Run Bash commands replaying changes in the current shell"
-            echo
+            echo "Usage: replay <commands>  Run Bash commands replaying changes in Fish"
             echo "Options:"
             echo "       -v or --version  Print version"
             echo "       -h or --help     Print this help message"
-        case -v --version
-            echo "replay, version 1.0.0"
         case \*
-            set --local delim "@@@@replay@@@@"
-
-            command bash -c "
+            set --local env
+            set --local sep :(command date +%s)$fish_pid$version:
+            set --local out (command bash -c "
                 $argv
                 status=\$?
-                [ \$status -eq 0 ] && echo $delim && alias && echo $delim && command awk '
-                    BEGIN {
-                        for (k in ENVIRON)
-                            if (gsub(/\n/, \"\\\n\", ENVIRON[k]) >= 0)
-                                print k, ENVIRON[k]
-                    }
-                ' || echo $delim \$status
-            " | command awk -v delim="$delim" '
-                $0 != delim || !++i {
-                    if ($1 == delim) exit $2
-                    else if (i < 2) print (i ? $0 : gsub(/\$/, "\\\$") >= 0 ? "echo \"" $0 "\"" : "")
-                    else env[$1] = (gsub(/\\\n/, "\n") >= 0 ? substr($0, length($1) + 2) : "")
-                }
-                END {
-                    for (k in env)
-                        if (len++ && k !~ /^(_|SHLVL|PS1|XPC_SERVICE_NAME|AWK(LIB)?PATH)$|^BASH_FUNC/\
-                        && !(k in ENVIRON && ENVIRON[k] == env[k]))
-                            print (\
-                                k == "PATH" && gsub(/:/, "\" \"", env[k]) >= 0\
-                                    ? "set PATH \"" env[k] "\"" : k == "PWD"\
-                                    ? "cd \"" env[k] "\"" : "set -gx " k " \"" env[k] "\""\
-                            )
-                    if (!len) print "exit " $2
-                    else for (k in ENVIRON) if (!(k in env)) print "set -e " k
-                }
-            ' | source
+                [ \$status -gt 0 ] && exit \$status
+
+                command compgen -e | command awk -v sep=$sep '{
+                    gsub(/\n/, \"\\\n\", ENVIRON[\$0])
+                    print \$0 sep ENVIRON[\$0]
+                }' && alias
+            ") || return
+
+            string replace --all -- \\n \n (
+                for line in $out
+                    if string split $sep $line | read --local --line name value
+                        set --append env $name
+                   
+                        contains -- $name SHLVL PS1 BASH_FUNC || test "$$name" = "$value" && continue
+
+                        if test "$name" = PATH
+                            string replace --all : " " "set $name $value"
+                        else if test "$name" = PWD
+                            echo builtin cd $value
+                        else
+                            echo "set --global --export $name \"$value\""
+                        end
+                    else
+                        set --query env[1] && 
+                            string match --entire --regex -- "^alias" $line || echo "echo \"$line\""
+                    end
+                end | string replace --all -- \$ \\\$
+                for name in (set --export --names)
+                    contains -- $name $env || echo "set --erase $name"
+                end
+            ) | source
     end
 end
