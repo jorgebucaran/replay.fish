@@ -2,7 +2,7 @@
 
 > Run Bash commands replaying changes in [Fish](https://fishshell.com). 🍤
 
-Let's say you need to source a Bash script, and want Fish to inherit changes in the environment, e.g., exported/unset variables, changes to the `$PATH`, and so on. How do you do that? Here's an idea.
+Let's say you need to run a Bash command, and want Fish to inherit changes in the environment, e.g., exported and unset variables, changes to the `$PATH`, and so on. How do you do that? Here's an idea.
 
 ```console
 $ exec bash -c "$commands; exec fish"
