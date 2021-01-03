@@ -9,7 +9,7 @@ function replay -d "Run Bash commands replaying changes in Fish"
             echo "       -h or --help     Print this help message"
         case \*
             set --local env
-            set --local sep :(command date +%s)$fish_pid$version:
+            set --local sep @$fish_pid(random)(command date +%s)
             set --local out (command bash -c "
                 $argv
                 status=\$?
