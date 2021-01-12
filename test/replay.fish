@@ -1,8 +1,5 @@
-@mesg $current_filename
-
 @test stdout (
-    replay echo "foo bar"
-    replay echo "piyo poyo"
+    replay echo "foo bar piyo poyo"
 ) = "foo bar piyo poyo"
 
 @test export (
