@@ -36,8 +36,7 @@ function replay --description "Run Bash commands replaying changes in Fish"
                             echo "set --global --export $name \"$value\""
                         end
                     else
-                        set --query env[1] && 
-                            string match --entire --regex -- "^alias" $line || echo "echo \"$line\""
+                        set --query env[1] && string match --entire --regex -- "^alias" $line || echo "echo \"$line\""
                     end
                 end | string replace --all -- \$ \\\$
                 for name in (set --export --names)
