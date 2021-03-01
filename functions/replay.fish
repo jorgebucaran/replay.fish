@@ -33,7 +33,7 @@ function replay --description "Run Bash commands replaying changes in Fish"
                         else if test "$name" = PWD
                             echo builtin cd $value
                         else
-                            echo "set --global --export $name \"$value\""
+                            echo "set --global --export $name "(string escape -- $value)
                         end
                     else
                         set --query env[1] && string match --entire --regex -- "^alias" $line || echo "echo \"$line\""
