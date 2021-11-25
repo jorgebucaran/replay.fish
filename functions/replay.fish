@@ -25,13 +25,13 @@ function replay --description "Run Bash commands replaying changes in Fish"
                 for line in $out
                     if string split $sep $line | read --local --line name value
                         set --append env $name
-                   
+
                         contains -- $name SHLVL PS1 BASH_FUNC || test "$$name" = "$value" && continue
 
                         if test "$name" = PATH
                             string replace --all : " " "set $name $value"
                         else if test "$name" = PWD
-                            echo builtin cd $value
+                            echo builtin cd \"$value\"
                         else
                             echo "set --global --export $name "(string escape -- $value)
                         end
