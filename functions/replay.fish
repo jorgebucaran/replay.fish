@@ -10,6 +10,7 @@ function replay --description "Run Bash commands replaying changes in Fish"
         case \*
             set --local env
             set --local sep @$fish_pid(random)(command date +%s)
+            set --local argv $argv[1] \"$argv[2..-1]\"
             set --local out (command bash -c "
                 $argv
                 status=\$?
