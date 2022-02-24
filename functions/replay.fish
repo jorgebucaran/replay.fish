@@ -10,6 +10,7 @@ function replay --description "Run Bash commands replaying changes in Fish"
         case \*
             set --local env
             set --local sep @$fish_pid(random)(command date +%s)
+            set --local argv $argv[1] \"$argv[2..-1]\"
             set --local out (command bash -c "
                 $argv
                 status=\$?
@@ -25,13 +26,13 @@ function replay --description "Run Bash commands replaying changes in Fish"
                 for line in $out
                     if string split $sep $line | read --local --line name value
                         set --append env $name
-                   
+
                         contains -- $name SHLVL PS1 BASH_FUNC || test "$$name" = "$value" && continue
 
                         if test "$name" = PATH
                             string replace --all : " " "set $name $value"
                         else if test "$name" = PWD
-                            echo builtin cd $value
+                            echo builtin cd \"$value\"
                         else
                             echo "set --global --export $name "(string escape -- $value)
                         end
