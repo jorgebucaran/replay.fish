@@ -32,7 +32,7 @@ function replay --description "Run Bash commands replaying changes in Fish"
                         if test "$name" = PATH
                             string replace --all : " " "set $name $value"
                         else if test "$name" = PWD
-                            echo builtin cd \"$value\"
+                            echo builtin cd "\"$value\""
                         else
                             echo "set --global --export $name "(string escape -- $value)
                         end
