@@ -24,7 +24,7 @@ function replay --description "Run Bash commands replaying changes in Fish"
 
             string replace --all -- \\n \n (
                 for line in $out
-                    if string split $sep $line | read --local --line name value
+                    if string split -- $sep $line | read --local --line name value
                         set --append env $name
 
                         contains -- $name SHLVL PS1 BASH_FUNC || test "$$name" = "$value" && continue
