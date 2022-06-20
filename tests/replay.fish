@@ -35,7 +35,7 @@
 
 @test \$ (replay echo \$) = \$
 
-@test ";" (
+@test \; (
     replay export "_replay=semi;"
     command env | string match --entire --regex -- "^_replay"
-) = _replay=semi
+) = _replay=semi\;
