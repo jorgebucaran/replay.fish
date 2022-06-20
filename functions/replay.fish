@@ -30,7 +30,7 @@ function replay --description "Run Bash commands replaying changes in Fish"
                         contains -- $name SHLVL PS1 BASH_FUNC || test "$$name" = "$value" && continue
 
                         if test "$name" = PATH
-                            string replace --all : " " "set $name $value"
+                            echo set PATH (string split -- : $value | string replace --regex --all -- '(^.*$)' '"$1"')
                         else if test "$name" = PWD
                             echo builtin cd "\"$value\""
                         else
